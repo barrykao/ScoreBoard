@@ -96,9 +96,75 @@ class ScoreBoardViewController: UIViewController, UITextFieldDelegate, SetTimeVi
         self.startButton.isEnabled = false
         self.resetButton.isEnabled = false
         
+        let firstScoreText = UITapGestureRecognizer( target:self, action:#selector(firstScoreTap(recognizer:)))
+        // 點幾下才觸發 設置 1 時 則是要點一下才會觸發 依此類推
+        firstScoreText.numberOfTapsRequired = 1
+        // 幾根指頭觸發
+        firstScoreText.numberOfTouchesRequired = 1
+        // 為視圖加入監聽手勢
+        self.firstScoreLabel.isUserInteractionEnabled = true
+        self.firstScoreLabel.addGestureRecognizer(firstScoreText)
         
+        let secondScoreText = UITapGestureRecognizer( target:self, action:#selector(secondScoreTap(recognizer:)))
+        // 點幾下才觸發 設置 1 時 則是要點一下才會觸發 依此類推
+        secondScoreText.numberOfTapsRequired = 1
+        // 幾根指頭觸發
+        secondScoreText.numberOfTouchesRequired = 1
+        self.secondScoreLabel.isUserInteractionEnabled = true
+        self.secondScoreLabel.addGestureRecognizer(secondScoreText)
         // Do any additional setup after loading the view.
     }
+    
+    // 觸發單指輕點一下手勢後 執行的動作
+    @objc func firstScoreTap(recognizer:UITapGestureRecognizer){
+        print("team")
+        
+        let controller = UIAlertController(title: "TeamScore", message: "Please enter team score number.", preferredStyle: .alert)
+        controller.addTextField { (textField) in
+            textField.placeholder = "000"
+            textField.keyboardType = UIKeyboardType.phonePad
+        }
+        let okAction = UIAlertAction(title: "OK", style: .default) { (_) in
+            guard let firstScoreLabel = controller.textFields?[0].text else {return}
+            guard let firstScore = Int(firstScoreLabel) else {return}
+            if firstScore > 999 {
+                alertAction(controller: self, title: "Error", message: "Please enter 0~999.")
+            }else {
+                self.firstScore = firstScore
+                self.firstScoreLabel.text = firstScoreLabel
+            }
+        }
+        controller.addAction(okAction)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        controller.addAction(cancelAction)
+        present(controller, animated: true, completion: nil)
+
+        
+    }
+    @objc func secondScoreTap(recognizer:UITapGestureRecognizer){
+        print("visit")
+        let controller = UIAlertController(title: "VisitScore", message: "Please enter visit score number.", preferredStyle: .alert)
+        controller.addTextField { (textField) in
+            textField.placeholder = "000"
+            textField.keyboardType = UIKeyboardType.phonePad
+        }
+        let okAction = UIAlertAction(title: "OK", style: .default) { (_) in
+            guard let secondScoreLabel = controller.textFields?[0].text else {return}
+            guard let secondScore = Int(secondScoreLabel) else {return}
+            if secondScore > 999 {
+                alertAction(controller: self, title: "Error", message: "Please enter 0~999.")
+            }else {
+                self.secondScore = secondScore
+                self.secondScoreLabel.text = secondScoreLabel
+            }
+        }
+        controller.addAction(okAction)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        controller.addAction(cancelAction)
+        present(controller, animated: true, completion: nil)
+    }
+    
+    
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
@@ -292,22 +358,30 @@ class ScoreBoardViewController: UIViewController, UITextFieldDelegate, SetTimeVi
     
     @IBAction func resetButton(_ sender: Any) {
         
-        self.hourTextView.text = "0"
-        self.minuteTextVIew.text = "0"
-        self.secondTextView.text = "0"
-        self.pointLabel.text = "0"
+        let alert = UIAlertController(title: "Reset All", message: "Do you want to reset this games?", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Yes", style: .default) { (ok) in
+            self.hourTextView.text = "0"
+            self.minuteTextVIew.text = "0"
+            self.secondTextView.text = "0"
+            self.pointLabel.text = "0"
+            
+            self.hours = 0
+            self.minutes = 0
+            self.seconds = 0
+            self.point = 0
+            
+            self.firstScore = 0
+            self.firstScoreLabel.text = "0"
+            self.secondScore = 0
+            self.secondScoreLabel.text = "0"
+            
+            self.startButton.isEnabled = false
+        }
+        alert.addAction(okAction)
+        let cancelAction = UIAlertAction(title: "No", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        self.present(alert, animated: true, completion: nil)
         
-        self.hours = 0
-        self.minutes = 0
-        self.seconds = 0
-        self.point = 0
-        
-        self.firstScore = 0
-        self.firstScoreLabel.text = "0"
-        self.secondScore = 0
-        self.secondScoreLabel.text = "0"
-        
-        self.startButton.isEnabled = false
     }
 
     @IBAction func saveButton(_ sender: Any) {
@@ -335,8 +409,20 @@ class ScoreBoardViewController: UIViewController, UITextFieldDelegate, SetTimeVi
         gameData.timeAll = self.timeAll
         gameData.teamQuarterScore.append(self.firstScore)
         gameData.visitQuarterScore.append(self.secondScore)
-        gameData.teamName = self.firstTeamTextField.text
-        gameData.visitName = self.secondTeamTextField.text
+        
+        guard let teamName = self.firstTeamTextField.text else {return}
+        guard let visitName = self.secondTeamTextField.text else {return}
+
+        if teamName == "" {
+            gameData.teamName = "Team:"
+        }else {
+            gameData.teamName = teamName + ":"
+        }
+        if visitName == "" {
+            gameData.visitName = "Visit:"
+        }else {
+            gameData.visitName = visitName + ":"
+        }
         
         let time = "\(self.hours):\(self.minutes):\(self.seconds)"
         gameData.timeQuarter.append(time)
@@ -354,17 +440,41 @@ class ScoreBoardViewController: UIViewController, UITextFieldDelegate, SetTimeVi
     
     @IBAction func saveAllButton(_ sender: Any) {
         
-//        guard let teamName = self.firstTeamTextField.text else {return}
-//        guard let visitName = self.secondTeamTextField.text else {return}
+        let alert = UIAlertController(title: "Games End!", message: "Do you want to save this games?", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Yes", style: .default) { (ok) in
+            self.delegate?.gameSetUp(gameData: self.gameData)
+            self.dismiss(animated: true)
+        }
+        alert.addAction(okAction)
+        let cancelAction = UIAlertAction(title: "No", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        self.present(alert, animated: true, completion: nil)
+  
         
-        self.delegate?.gameSetUp(gameData: self.gameData)
-        
-//        self.delegate?.gameSetUp(teamQuarterScore: self.teamQuarterScore, visitQuarterScore: self.visitQuarterScore, teamName: teamName, visitName: visitName, timeAll: self.timeAll)
-        
-        self.dismiss(animated: true)
         
     }
     
+    @IBAction func optionTime(_ sender: Any) {
+        
+        let controller = UIAlertController(title: "Please choice the actions.", message: "what do you want to do?", preferredStyle: .actionSheet)
+        let actions = ["set games time", "set time out"]
+        for action in actions {
+            let action = UIAlertAction(title: action, style: .default) { (action) in
+                
+                let timeOutVC = self.storyboard?.instantiateViewController(withIdentifier: "setTime") as! SetTimeViewController
+                timeOutVC.delegate = self
+                self.present(self, animated: true, completion: nil)
+                
+            }
+            controller.addAction(action)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        controller.addAction(cancelAction)
+        present(controller, animated: true, completion: nil)
+
+    }
+    
+    /*
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "setTimeSegue" {
@@ -374,6 +484,8 @@ class ScoreBoardViewController: UIViewController, UITextFieldDelegate, SetTimeVi
             
         }
     }
+    */
+    
     // MARK: protocol setTimeViewController
     func setTimeAction(hour: String?, minute: String?, second: String?) {
         
@@ -409,6 +521,8 @@ class ScoreBoardViewController: UIViewController, UITextFieldDelegate, SetTimeVi
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
+        
+        
         textField.isEnabled = false
     }
     
@@ -482,25 +596,5 @@ extension ScoreBoardViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.tableView.deselectRow(at: indexPath, animated: true)
     }
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        
-        if editingStyle == .delete {
-//            if self.quarterData.count == 0{
-//                self.navigationItem.rightBarButtonItem?.isEnabled = false
-//            }
-//            self.quarterData.remove(at: indexPath.row)
-//            self.tableView.deleteRows(at: [indexPath], with: .automatic)
-            
-            if self.gameQuarterData.count == 0 {
-                self.navigationItem.rightBarButtonItem?.isEnabled = false
-            }
-            self.gameQuarterData.remove(at: indexPath.row)
-            self.tableView.deleteRows(at: [indexPath], with: .automatic)
-        }
-        
-        
-    }
-    
     
 }

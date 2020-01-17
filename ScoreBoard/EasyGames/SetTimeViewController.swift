@@ -105,11 +105,3 @@ class SetTimeViewController: UIViewController,UITextFieldDelegate {
     */
 
 }
-
-
-func alertAction(controller: UIViewController, title: String, message: String){
-    let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-    alert.addAction(okAction)
-    controller.present(alert, animated: true, completion: nil)
-}
