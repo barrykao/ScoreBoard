@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4C3BA4E0236FBD2F00270384 /* SetTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3BA4DF236FBD2F00270384 /* SetTimeViewController.swift */; };
 		4C5FB5C123C313A000256983 /* GamesDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5FB5C023C313A000256983 /* GamesDetailViewController.swift */; };
 		4CDFB673237129C300F1D800 /* QuarterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDFB672237129C300F1D800 /* QuarterTableViewCell.swift */; };
 		4CDFB67523715A1E00F1D800 /* GameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDFB67423715A1E00F1D800 /* GameTableViewCell.swift */; };
@@ -22,7 +21,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4C3BA4DF236FBD2F00270384 /* SetTimeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetTimeViewController.swift; sourceTree = "<group>"; };
 		4C5FB5C023C313A000256983 /* GamesDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesDetailViewController.swift; sourceTree = "<group>"; };
 		4CDFB672237129C300F1D800 /* QuarterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuarterTableViewCell.swift; sourceTree = "<group>"; };
 		4CDFB67423715A1E00F1D800 /* GameTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTableViewCell.swift; sourceTree = "<group>"; };
@@ -55,7 +53,6 @@
 				4CDFB67623717F7E00F1D800 /* Games.swift */,
 				4CF8E1CB236C29E6003A34BE /* GamesViewController.swift */,
 				4CF8E1C9236C29DC003A34BE /* ScoreBoardViewController.swift */,
-				4C3BA4DF236FBD2F00270384 /* SetTimeViewController.swift */,
 				4C5FB5C023C313A000256983 /* GamesDetailViewController.swift */,
 			);
 			path = EasyGames;
@@ -175,7 +172,6 @@
 				4C5FB5C123C313A000256983 /* GamesDetailViewController.swift in Sources */,
 				4CDFB67523715A1E00F1D800 /* GameTableViewCell.swift in Sources */,
 				4CDFB673237129C300F1D800 /* QuarterTableViewCell.swift in Sources */,
-				4C3BA4E0236FBD2F00270384 /* SetTimeViewController.swift in Sources */,
 				4CDFB67723717F7E00F1D800 /* Games.swift in Sources */,
 				4CF8E1CC236C29E6003A34BE /* GamesViewController.swift in Sources */,
 				4CF8E1BA236C2077003A34BE /* ViewController.swift in Sources */,

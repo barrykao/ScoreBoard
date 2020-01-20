@@ -10,16 +10,13 @@ import UIKit
 
 
 protocol ScoreBoardViewControllerDelegate: class {
-//    func gameSetUp(teamQuarterScore: [Int], visitQuarterScore: [Int], teamName: String, visitName: String, timeAll: String)
     func gameSetUp(gameData: GameData)
 }
 
 
-class ScoreBoardViewController: UIViewController, UITextFieldDelegate, SetTimeViewControllerDelegate {
+class ScoreBoardViewController: UIViewController, UITextFieldDelegate{
     
-    @IBOutlet weak var timeLabel: UILabel!
-    @IBOutlet weak var timeTextView: UITextView!
-    
+    @IBOutlet weak var optionButton: UIButton!
     
     @IBOutlet weak var hourTextView: UITextView!
     @IBOutlet weak var minuteTextVIew: UITextView!
@@ -54,7 +51,7 @@ class ScoreBoardViewController: UIViewController, UITextFieldDelegate, SetTimeVi
     var isCountDown: Bool = true
     var timer = Timer()
 
-//    var quarterData: [QuarterData] = []
+
     var gameQuarterData: [GameData] = []
     let gameData = GameData()
 
@@ -64,6 +61,7 @@ class ScoreBoardViewController: UIViewController, UITextFieldDelegate, SetTimeVi
     var hoursAll: Int = 0
     var minutesAll: Int = 0
     var secondsAll: Int = 0
+    var timeChangeFlag: Bool = true
     
     var teamQuarterScore = [Int]()
     var visitQuarterScore = [Int]()
@@ -73,6 +71,7 @@ class ScoreBoardViewController: UIViewController, UITextFieldDelegate, SetTimeVi
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.optionButton.setTitle("設定時間", for: .normal)
         
         firstScoreLabel.text = "0"
         secondScoreLabel.text = "0"
@@ -94,7 +93,7 @@ class ScoreBoardViewController: UIViewController, UITextFieldDelegate, SetTimeVi
 
         self.saveButton.isEnabled = false
         self.startButton.isEnabled = false
-        self.resetButton.isEnabled = false
+        self.resetButton.isEnabled = true
         
         let firstScoreText = UITapGestureRecognizer( target:self, action:#selector(firstScoreTap(recognizer:)))
         // 點幾下才觸發 設置 1 時 則是要點一下才會觸發 依此類推
@@ -163,8 +162,6 @@ class ScoreBoardViewController: UIViewController, UITextFieldDelegate, SetTimeVi
         controller.addAction(cancelAction)
         present(controller, animated: true, completion: nil)
     }
-    
-    
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
@@ -305,7 +302,7 @@ class ScoreBoardViewController: UIViewController, UITextFieldDelegate, SetTimeVi
                 }
             }
         }
-        
+    
         self.point -= 1
 
         self.hourTextView.text = String(format: "%d", hours)
@@ -313,18 +310,29 @@ class ScoreBoardViewController: UIViewController, UITextFieldDelegate, SetTimeVi
         self.secondTextView.text = String(format: "%d", seconds)
         self.pointLabel.text = String(format: "%d",point)
         if self.hours == 0 && self.minutes == 0 && self.seconds == 0 && self.point == 0 {
-            self.timer.invalidate()
-            self.hourTextView.text = UserDefaults.standard.string(forKey: "hours")
-            self.minuteTextVIew.text = UserDefaults.standard.string(forKey: "minutes")
-            self.secondTextView.text = UserDefaults.standard.string(forKey: "seconds")
-            self.hours = UserDefaults.standard.integer(forKey: "hours")
-            self.minutes = UserDefaults.standard.integer(forKey: "minutes")
-            self.seconds = UserDefaults.standard.integer(forKey: "seconds")
-            self.startButton.setTitle("Start", for: .normal)
-            isCountDown = true
-            self.navigationItem.leftBarButtonItem?.isEnabled = true
-            self.saveButton.isEnabled = true
-            alertAction(controller: self, title: "Times Up!", message: "Game is over!")
+            
+                self.timer.invalidate()
+                self.hourTextView.text = UserDefaults.standard.string(forKey: "hours")
+                self.minuteTextVIew.text = UserDefaults.standard.string(forKey: "minutes")
+                self.secondTextView.text = UserDefaults.standard.string(forKey: "seconds")
+                self.hours = UserDefaults.standard.integer(forKey: "hours")
+                self.minutes = UserDefaults.standard.integer(forKey: "minutes")
+                self.seconds = UserDefaults.standard.integer(forKey: "seconds")
+                self.startButton.setTitle("Start", for: .normal)
+                self.isCountDown = true
+                self.navigationItem.leftBarButtonItem?.isEnabled = true
+                self.optionButton.isEnabled = true
+                self.resetButton.isEnabled = true
+            if self.timeChangeFlag {
+                self.saveButton.isEnabled = true
+                alertAction(controller: self, title: "時間到!", message: "比賽結束\n點選Save可以儲存該節比賽")
+            }else {
+                self.timeChangeFlag = true
+                self.saveButton.isEnabled = false
+                alertAction(controller: self, title: "時間到!", message: "暫停時間已到")
+            }
+            
+            
         }
 //        self.timeTextView.text = String(format: "%d : %d : %.1f",hours,minutes,seconds)
         
@@ -333,49 +341,34 @@ class ScoreBoardViewController: UIViewController, UITextFieldDelegate, SetTimeVi
     @IBAction func startButton(_ sender: Any) {
         
         if isCountDown {
-            
             self.startButton.setTitle("Pause", for: .normal)
             self.navigationItem.leftBarButtonItem?.isEnabled = false
             self.navigationItem.rightBarButtonItem?.isEnabled = false
             self.resetButton.isEnabled = false
             self.saveButton.isEnabled = false
             isCountDown = false
+            self.optionButton.isEnabled = false
             DispatchQueue.main.async {
                 self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.UpdateTimer), userInfo: nil, repeats: true)
             }
             
         }else {
-            
             self.startButton.setTitle("Start", for: .normal)
             self.navigationItem.leftBarButtonItem?.isEnabled = true
             isCountDown = true
             self.timer.invalidate()
             self.resetButton.isEnabled = true
-            
+            self.optionButton.isEnabled = true
         }
         
     }
     
     @IBAction func resetButton(_ sender: Any) {
         
-        let alert = UIAlertController(title: "Reset All", message: "Do you want to reset this games?", preferredStyle: .alert)
+        let alert = UIAlertController(title: "清除設定", message: "你想要清除所有設定嗎?", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "Yes", style: .default) { (ok) in
-            self.hourTextView.text = "0"
-            self.minuteTextVIew.text = "0"
-            self.secondTextView.text = "0"
-            self.pointLabel.text = "0"
-            
-            self.hours = 0
-            self.minutes = 0
-            self.seconds = 0
-            self.point = 0
-            
-            self.firstScore = 0
-            self.firstScoreLabel.text = "0"
-            self.secondScore = 0
-            self.secondScoreLabel.text = "0"
-            
-            self.startButton.isEnabled = false
+            self.resetAll()
+            self.resetButton.isEnabled = false
         }
         alert.addAction(okAction)
         let cancelAction = UIAlertAction(title: "No", style: .cancel, handler: nil)
@@ -456,15 +449,63 @@ class ScoreBoardViewController: UIViewController, UITextFieldDelegate, SetTimeVi
     
     @IBAction func optionTime(_ sender: Any) {
         
-        let controller = UIAlertController(title: "Please choice the actions.", message: "what do you want to do?", preferredStyle: .actionSheet)
-        let actions = ["set games time", "set time out"]
+        let controller = UIAlertController(title: "設定時間", message: "請選擇設定的功能", preferredStyle: .actionSheet)
+        let actions = ["設定比賽時間", "設定暫停時間"]
         for action in actions {
             let action = UIAlertAction(title: action, style: .default) { (action) in
-                
-                let timeOutVC = self.storyboard?.instantiateViewController(withIdentifier: "setTime") as! SetTimeViewController
-                timeOutVC.delegate = self
-                self.present(self, animated: true, completion: nil)
-                
+                if action.title == "設定比賽時間" {
+                    self.timeChangeFlag = true
+                    let controller = UIAlertController(title: "設定比賽時間", message: "請輸入比賽時間", preferredStyle: .alert)
+                    controller.addTextField { (textField) in
+                        textField.placeholder = "時:00"
+                        textField.keyboardType = UIKeyboardType.phonePad
+                    }
+                    controller.addTextField { (textField) in
+                        textField.placeholder = "分:00"
+                        textField.keyboardType = UIKeyboardType.phonePad
+                    }
+                    controller.addTextField { (textField) in
+                        textField.placeholder = "秒:00"
+                        textField.keyboardType = UIKeyboardType.phonePad
+                    }
+                    let okAction = UIAlertAction(title: "OK", style: .default) { (_) in
+                        guard let hours = controller.textFields?[0].text else {return}
+                        guard let minutes = controller.textFields?[1].text else {return}
+                        guard let seconds = controller.textFields?[2].text else {return}
+                        self.setTimeAction(hours: hours, minutes: minutes, seconds: seconds)
+                    }
+                    controller.addAction(okAction)
+                    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                    controller.addAction(cancelAction)
+                    self.present(controller, animated: true, completion: nil)
+                }
+                if action.title == "設定暫停時間" {
+                    self.timeChangeFlag = false
+                    let controller = UIAlertController(title: "設定暫停時間", message: "請設定暫停時間", preferredStyle: .alert)
+                    controller.addTextField { (textField) in
+                        textField.placeholder = "時:00"
+                        textField.keyboardType = UIKeyboardType.phonePad
+                    }
+                    controller.addTextField { (textField) in
+                        textField.placeholder = "分:00"
+                        textField.keyboardType = UIKeyboardType.phonePad
+                    }
+                    controller.addTextField { (textField) in
+                        textField.placeholder = "秒:00"
+                        textField.keyboardType = UIKeyboardType.phonePad
+                    }
+                    let okAction = UIAlertAction(title: "OK", style: .default) { (_) in
+                        guard let hours = controller.textFields?[0].text else {return}
+                        guard let minutes = controller.textFields?[1].text else {return}
+                        guard let seconds = controller.textFields?[2].text else {return}
+                        self.setTimeAction(hours: hours, minutes: minutes, seconds: seconds)
+                    }
+                    controller.addAction(okAction)
+                    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                    controller.addAction(cancelAction)
+                    self.present(controller, animated: true, completion: nil)
+                    
+                }
             }
             controller.addAction(action)
         }
@@ -474,68 +515,81 @@ class ScoreBoardViewController: UIViewController, UITextFieldDelegate, SetTimeVi
 
     }
     
-    /*
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        if segue.identifier == "setTimeSegue" {
-            
-            let setTimeVC = segue.destination as! SetTimeViewController
-            setTimeVC.delegate = self
-            
-        }
-    }
-    */
     
-    // MARK: protocol setTimeViewController
-    func setTimeAction(hour: String?, minute: String?, second: String?) {
+    // MARK: setTimeAction
+    func setTimeAction(hours: String, minutes: String, seconds: String) {
         
-        guard let hour = hour else {return}
-        guard let minute = minute else {return}
-        guard let second = second else {return}
-
-        self.hourTextView.text = hour
-        self.minuteTextVIew.text = minute
-        self.secondTextView.text = second
-        self.pointLabel.text = "0"
-        blankTextView(textView: self.hourTextView)
-        blankTextView(textView: self.minuteTextVIew)
-        blankTextView(textView: self.secondTextView)
-
-        
-        self.hours = Int(hour) ?? 0
-        self.minutes = Int(minute) ?? 0
-        self.seconds = Int(second) ?? 0
+        self.hours = Int(hours) ?? 0
+        self.minutes = Int(minutes) ?? 0
+        self.seconds = Int(seconds) ?? 0
         self.point = 0
 
+        if self.hours > 99 {
+            alertAction(controller: self, title: "Error!", message: "小時數字必須為0~99")
+            self.resetAll()
+            return
+        }else {
+            if hours == "" {
+                self.hourTextView.text = "0"
+            }else {
+                self.hourTextView.text = hours
+            }
+        }
+        
+        if self.minutes > 59 || self.seconds > 59 {
+            alertAction(controller: self, title: "Error!", message: "分鐘與秒鐘數字必需為0~59")
+            self.resetAll()
+            return
+        }else {
+            if minutes == "" {
+                self.minuteTextVIew.text = "0"
+            }else {
+                self.minuteTextVIew.text = minutes
+            }
+            if seconds == "" {
+                self.secondTextView.text = "0"
+            }else {
+                self.secondTextView.text = seconds
+            }
+        }
+        self.pointLabel.text = "0"
         if self.hours == 0 && self.minutes == 0 && self.seconds == 0 {
             self.startButton.isEnabled = false
         }else {
             self.startButton.isEnabled = true
         }
-        
         self.resetButton.isEnabled = true
-        UserDefaults.standard.set(self.hours, forKey: "hours")
-        UserDefaults.standard.set(self.minutes, forKey: "minutes")
-        UserDefaults.standard.set(self.seconds, forKey: "seconds")
-        
+        if self.timeChangeFlag {
+            UserDefaults.standard.set(self.hours, forKey: "hours")
+            UserDefaults.standard.set(self.minutes, forKey: "minutes")
+            UserDefaults.standard.set(self.seconds, forKey: "seconds")
+        }
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        
-        
         textField.isEnabled = false
     }
     
-    func blankTextView(textView: UITextView) {
+    func resetAll() {
+        self.hourTextView.text = "0"
+        self.minuteTextVIew.text = "0"
+        self.secondTextView.text = "0"
+        self.pointLabel.text = "0"
         
-        if textView.text == "" {
-            textView.text = "0"
-        }
+        self.hours = 0
+        self.minutes = 0
+        self.seconds = 0
+        self.point = 0
         
+        self.firstScore = 0
+        self.firstScoreLabel.text = "0"
+        self.secondScore = 0
+        self.secondScoreLabel.text = "0"
+        
+        self.startButton.isEnabled = false
     }
-    
+
     @IBAction func backButton(_ sender: Any) {
-        
         self.dismiss(animated: true)
     }
     
