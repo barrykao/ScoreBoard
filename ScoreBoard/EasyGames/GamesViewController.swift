@@ -12,11 +12,6 @@ import UIKit
 
 class GamesViewController: UIViewController, ScoreBoardViewControllerDelegate {
    
-  
-    
-    
-    
-   
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -26,9 +21,6 @@ class GamesViewController: UIViewController, ScoreBoardViewControllerDelegate {
     var visitAllScore: Int = 0
     var timeAll: String = ""
     var selectRow: Int = 0
-//    var teamQuarterScore = [Int]()
-//    var visitQuarterScore = [Int]()
-    
     
     
     required init?(coder aDecoder: NSCoder) {
@@ -82,7 +74,7 @@ class GamesViewController: UIViewController, ScoreBoardViewControllerDelegate {
         
     }
     
-
+    //MARK: SaveData
     func saveToFile() {
         
         let homeURL = URL(fileURLWithPath: NSHomeDirectory())
@@ -117,6 +109,8 @@ class GamesViewController: UIViewController, ScoreBoardViewControllerDelegate {
         }
     }
 }
+
+// MARK: GamesTableView
 extension GamesViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -146,6 +140,7 @@ extension GamesViewController: UITableViewDataSource, UITableViewDelegate {
             self.gameData.remove(at: indexPath.row)
             self.saveToFile() //File
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            self.tableView.reloadData()
         }
     }
     

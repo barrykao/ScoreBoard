@@ -37,6 +37,10 @@ class ScoreBoardViewController: UIViewController, UITextFieldDelegate{
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var resetButton: UIButton!
     
+    
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var scoreStackView: UIStackView!
+    
     @IBOutlet weak var tableView: UITableView!
     
     var firstScore: Int = 0
@@ -68,29 +72,32 @@ class ScoreBoardViewController: UIViewController, UITextFieldDelegate{
 
     var delegate: ScoreBoardViewControllerDelegate?
     
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.optionButton.setTitle("設定時間", for: .normal)
+        imageView.image = UIImage(named: "background3.jpg")
+        textFieldBoard(textField: self.firstTeamFoulTextField)
+        textFieldBoard(textField: self.secondTeamFoulTextField)
+        textFieldBoard(textField: self.firstTeamTextField)
+        textFieldBoard(textField: self.secondTeamTextField)
+        buttonInit(button: self.optionButton)
+        buttonInit(button: self.startButton)
+        buttonInit(button: self.resetButton)
+        buttonInit(button: self.saveButton)
         
-        firstScoreLabel.text = "0"
-        secondScoreLabel.text = "0"
-//        timeTextView.text = "00:00:00.0"
-        self.hourTextView.text = "0"
-        self.minuteTextVIew.text = "0"
-        self.secondTextView.text = "0"
-        self.pointLabel.text = "0"
-        self.firstTeamFoulTextField.text = "0"
-        self.secondTeamFoulTextField.text = "0"
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.firstTeamTextField.delegate = self
         self.secondTeamTextField.delegate = self
+        
         self.firstTeamFoulTextField.isEnabled = false
         self.secondTeamFoulTextField.isEnabled = false
-        
         self.navigationItem.rightBarButtonItem?.isEnabled = false
-
+        
         self.saveButton.isEnabled = false
         self.startButton.isEnabled = false
         self.resetButton.isEnabled = true
@@ -113,12 +120,12 @@ class ScoreBoardViewController: UIViewController, UITextFieldDelegate{
         self.secondScoreLabel.addGestureRecognizer(secondScoreText)
         // Do any additional setup after loading the view.
     }
-    
+    //MARK: changeTheScore
     // 觸發單指輕點一下手勢後 執行的動作
     @objc func firstScoreTap(recognizer:UITapGestureRecognizer){
         print("team")
         
-        let controller = UIAlertController(title: "TeamScore", message: "Please enter team score number.", preferredStyle: .alert)
+        let controller = UIAlertController(title: "TeamScore", message: "Please enter team score", preferredStyle: .alert)
         controller.addTextField { (textField) in
             textField.placeholder = "000"
             textField.keyboardType = UIKeyboardType.phonePad
@@ -127,7 +134,7 @@ class ScoreBoardViewController: UIViewController, UITextFieldDelegate{
             guard let firstScoreLabel = controller.textFields?[0].text else {return}
             guard let firstScore = Int(firstScoreLabel) else {return}
             if firstScore > 999 {
-                alertAction(controller: self, title: "Error", message: "Please enter 0~999.")
+                alertAction(controller: self, title: "Error", message: "Please enter 0~999")
             }else {
                 self.firstScore = firstScore
                 self.firstScoreLabel.text = firstScoreLabel
@@ -142,7 +149,7 @@ class ScoreBoardViewController: UIViewController, UITextFieldDelegate{
     }
     @objc func secondScoreTap(recognizer:UITapGestureRecognizer){
         print("visit")
-        let controller = UIAlertController(title: "VisitScore", message: "Please enter visit score number.", preferredStyle: .alert)
+        let controller = UIAlertController(title: "VisitScore", message: "Please enter visit score", preferredStyle: .alert)
         controller.addTextField { (textField) in
             textField.placeholder = "000"
             textField.keyboardType = UIKeyboardType.phonePad
@@ -151,7 +158,7 @@ class ScoreBoardViewController: UIViewController, UITextFieldDelegate{
             guard let secondScoreLabel = controller.textFields?[0].text else {return}
             guard let secondScore = Int(secondScoreLabel) else {return}
             if secondScore > 999 {
-                alertAction(controller: self, title: "Error", message: "Please enter 0~999.")
+                alertAction(controller: self, title: "Error", message: "Please enter 0~999")
             }else {
                 self.secondScore = secondScore
                 self.secondScoreLabel.text = secondScoreLabel
@@ -178,12 +185,15 @@ class ScoreBoardViewController: UIViewController, UITextFieldDelegate{
     
     // MARK: Point
     @IBAction func addFirstTeamPointButton(_ sender: Any) {
-        
+        if firstScore == 999 {
+            return
+        }
         if firstScore >= 0 {
             firstScore += 1
             let firstScoreString = String(firstScore)
             self.firstScoreLabel.text = firstScoreString
         }
+        
     }
     
     @IBAction func minusFirstTeamButton(_ sender: Any) {
@@ -192,19 +202,20 @@ class ScoreBoardViewController: UIViewController, UITextFieldDelegate{
             firstScore -= 1
             let firstScoreString = String(firstScore)
             self.firstScoreLabel.text = firstScoreString
-        }else {
-            self.firstScoreLabel.text = "0"
-            firstScore = 0
         }
         
     }
     
     @IBAction func addSecondTeamPointButton(_ sender: Any) {
+        if secondScore == 999 {
+            return
+        }
         if secondScore >= 0 {
             secondScore += 1
             let secondScoreString = String(secondScore)
             self.secondScoreLabel.text = secondScoreString
         }
+        
         
     }
     
@@ -214,9 +225,6 @@ class ScoreBoardViewController: UIViewController, UITextFieldDelegate{
             secondScore -= 1
             let secondScoreString = String(secondScore)
             self.secondScoreLabel.text = secondScoreString
-        }else {
-            self.secondScoreLabel.text = "0"
-            secondScore = 0
         }
     }
     
@@ -243,9 +251,6 @@ class ScoreBoardViewController: UIViewController, UITextFieldDelegate{
             firstFoul -= 1
             let firstFoulString = String(firstFoul)
             self.firstTeamFoulTextField.text = firstFoulString
-        }else {
-            self.firstTeamFoulTextField.text = "0"
-            firstFoul = 0
         }
         
     }
@@ -273,9 +278,6 @@ class ScoreBoardViewController: UIViewController, UITextFieldDelegate{
             secondFoul -= 1
             let secondFoulString = String(secondFoul)
             self.secondTeamFoulTextField.text = secondFoulString
-        }else {
-            self.secondTeamFoulTextField.text = "0"
-            secondFoul = 0
         }
         
     }
@@ -337,7 +339,7 @@ class ScoreBoardViewController: UIViewController, UITextFieldDelegate{
 //        self.timeTextView.text = String(format: "%d : %d : %.1f",hours,minutes,seconds)
         
     }
-    
+    // MARK: Counter
     @IBAction func startButton(_ sender: Any) {
         
         if isCountDown {
@@ -365,7 +367,7 @@ class ScoreBoardViewController: UIViewController, UITextFieldDelegate{
     
     @IBAction func resetButton(_ sender: Any) {
         
-        let alert = UIAlertController(title: "清除設定", message: "你想要清除所有設定嗎?", preferredStyle: .alert)
+        let alert = UIAlertController(title: "清除設定", message: "請問確定清除所有設定嗎?", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "Yes", style: .default) { (ok) in
             self.resetAll()
             self.resetButton.isEnabled = false
@@ -381,12 +383,10 @@ class ScoreBoardViewController: UIViewController, UITextFieldDelegate{
         
         self.saveButton.isEnabled = false
         self.navigationItem.rightBarButtonItem?.isEnabled = true
-//        let data = QuarterData()
+
         
         self.teamQuarterScore.append(self.firstScore)
         self.visitQuarterScore.append(self.secondScore)
-//        data.firstScore = self.firstScore
-//        data.secondScore = self.secondScore
         
         self.teamAllScore += self.firstScore
         self.visitAllScore += self.secondScore
@@ -395,8 +395,7 @@ class ScoreBoardViewController: UIViewController, UITextFieldDelegate{
         self.minutesAll += self.minutes
         self.secondsAll += self.seconds
         self.timeAll = "\(self.hoursAll):\(self.minutesAll):\(self.secondsAll)"
-//        data.time = "\(self.hours):\(self.minutes):\(self.seconds)"
-//        quarterData.append(data)
+        
         gameData.teamAllScore = self.teamAllScore
         gameData.visitAllScore = self.visitAllScore
         gameData.timeAll = self.timeAll
@@ -433,7 +432,7 @@ class ScoreBoardViewController: UIViewController, UITextFieldDelegate{
     
     @IBAction func saveAllButton(_ sender: Any) {
         
-        let alert = UIAlertController(title: "Games End!", message: "Do you want to save this games?", preferredStyle: .alert)
+        let alert = UIAlertController(title: "比賽結束!", message: "請問是否儲存這場比賽?", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "Yes", style: .default) { (ok) in
             self.delegate?.gameSetUp(gameData: self.gameData)
             self.dismiss(animated: true)
@@ -566,10 +565,7 @@ class ScoreBoardViewController: UIViewController, UITextFieldDelegate{
         }
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        textField.isEnabled = false
-    }
-    
+    // MARK: ResetAll
     func resetAll() {
         self.hourTextView.text = "0"
         self.minuteTextVIew.text = "0"
@@ -585,7 +581,10 @@ class ScoreBoardViewController: UIViewController, UITextFieldDelegate{
         self.firstScoreLabel.text = "0"
         self.secondScore = 0
         self.secondScoreLabel.text = "0"
-        
+        self.firstFoul = 0
+        self.secondFoul = 0
+        self.firstTeamFoulTextField.text = "0"
+        self.secondTeamFoulTextField.text = "0"
         self.startButton.isEnabled = false
     }
 
@@ -593,7 +592,33 @@ class ScoreBoardViewController: UIViewController, UITextFieldDelegate{
         self.dismiss(animated: true)
     }
     
-    
+    func textFieldBoard(textField: UITextField){
+        textField.layer.borderWidth = 1
+//        textField.layer.borderColor = UIColor.black.cgColor
+//        textField.layer.backgroundColor = UIColor.clear.cgColor
+        textField.layer.cornerRadius = 10.0
+        textField.layer.shadowColor = UIColor.black.cgColor
+        textField.layer.shadowRadius = 2
+        textField.layer.shadowOffset = CGSize(width: 2, height: 2)
+        textField.layer.shadowOpacity = 0.3
+        
+    }
+    func buttonInit(button: UIButton) {
+        
+//        button.layer.borderWidth = 1
+//        button.layer.borderColor = UIColor.black.cgColor
+//        button.layer.backgroundColor = UIColor.clear.cgColor
+        button.layer.cornerRadius = 10.0
+//        button.backgroundColor = UIColor.blue
+//        button.tintColor = UIColor.white
+        
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowRadius = 2
+        button.layer.shadowOffset = CGSize(width: 2, height: 2)
+        button.layer.shadowOpacity = 0.3
+        
+        
+    }
     /*
     // MARK: - Navigation
 
@@ -611,34 +636,14 @@ extension ScoreBoardViewController: UITableViewDataSource, UITableViewDelegate {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return self.quarterData.count
         return self.gameQuarterData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "quarterCell", for: indexPath) as! QuarterTableViewCell
         
-//        let data = self.quarterData[indexPath.row]
-//        cell.quarterNumber.text = "\(indexPath.row + 1)"
-//        if let firstScore = data.firstScore,
-//            let secondScore = data.secondScore,
-//            let time = data.time {
-//            cell.firstScoreLabel.text = "\(firstScore)"
-//            cell.secondScoreLabel.text = "\(secondScore)"
-//            cell.timeLabel.text = "\(time)"
-//        }
-        
         let data = self.gameQuarterData[indexPath.row]
         cell.quarterNumber.text = "\(indexPath.row + 1)."
-        
-//        if let temaScore = data.teamQuarterScore[indexPath.row],
-//            let visitScore = data.visitQuarterScore[indexPath.row],
-//            let time = data.timeQuarter[indexPath.row]{
-//            cell.firstScoreLabel.text = "\(temaScore)"
-//            cell.secondScoreLabel.text = "\(visitScore)"
-//            cell.timeLabel.text = "\(time)"
-//        }
-//
         cell.firstScoreLabel.text = "\(data.teamQuarterScore[indexPath.row])"
         cell.secondScoreLabel.text = "\(data.visitQuarterScore[indexPath.row])"
         cell.timeLabel.text = "\(data.timeQuarter[indexPath.row])"
@@ -650,5 +655,14 @@ extension ScoreBoardViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.tableView.deselectRow(at: indexPath, animated: true)
     }
-    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        if editingStyle == .delete {
+            
+            self.gameQuarterData.remove(at: indexPath.row)
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            self.tableView.reloadData()
+        }
+        
+    }
 }

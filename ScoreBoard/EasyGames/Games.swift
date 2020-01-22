@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+
 class GameData: NSObject,NSCoding {
     func encode(with aCoder: NSCoder) {
         //把物件存到檔案

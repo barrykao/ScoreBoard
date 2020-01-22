@@ -54,11 +54,6 @@ extension GamesDetailViewController: UITableViewDataSource ,UITableViewDelegate 
         let cell = tableView.dequeueReusableCell(withIdentifier: "quarterCell", for: indexPath) as! QuarterTableViewCell
         let data = self.currentGameData[selectRow]
         cell.quarterNumber.text = "\(indexPath.row + 1)."
-        
-//        cell.firstScoreLabel.text = "\(data.teamQuarterScore[indexPath.row])"
-//        cell.secondScoreLabel.text = "\(data.visitQuarterScore[indexPath.row])"
-//        cell.timeLabel.text = "\(data.timeQuarter[indexPath.row])"
-        
         cell.firstScoreLabel.text = "\(data.teamQuarterScore[indexPath.row])"
         cell.secondScoreLabel.text = "\(data.visitQuarterScore[indexPath.row])"
         cell.timeLabel.text = "\(data.timeQuarter[indexPath.row])"
