@@ -56,15 +56,15 @@ class ScoreBoardViewController: UIViewController, UITextFieldDelegate{
     var timer = Timer()
 
 
-    var gameQuarterData: [GameData] = []
+    var gameQuarterData = [GameData]()
     let gameData = GameData()
 
     var teamAllScore: Int = 0
     var visitAllScore: Int = 0
     var timeAll: String = ""
-    var hoursAll: Int = 0
-    var minutesAll: Int = 0
-    var secondsAll: Int = 0
+    var hoursAll = [Int]()
+    var minutesAll = [Int]()
+    var secondsAll = [Int]()
     var timeChangeFlag: Bool = true
     
     var teamQuarterScore = [Int]()
@@ -385,20 +385,18 @@ class ScoreBoardViewController: UIViewController, UITextFieldDelegate{
         self.navigationItem.rightBarButtonItem?.isEnabled = true
 
         
-        self.teamQuarterScore.append(self.firstScore)
-        self.visitQuarterScore.append(self.secondScore)
+//        self.teamQuarterScore.append(self.firstScore)
+//        self.visitQuarterScore.append(self.secondScore)
         
-        self.teamAllScore += self.firstScore
-        self.visitAllScore += self.secondScore
-
-        self.hoursAll += self.hours
-        self.minutesAll += self.minutes
-        self.secondsAll += self.seconds
-        self.timeAll = "\(self.hoursAll):\(self.minutesAll):\(self.secondsAll)"
+//        self.teamAllScore += self.firstScore
+//        self.visitAllScore += self.secondScore
+//
+//        self.hoursAll += self.hours
+//        self.minutesAll += self.minutes
+//        self.secondsAll += self.seconds
+//        self.timeAll = "\(self.hoursAll):\(self.minutesAll):\(self.secondsAll)"
         
-        gameData.teamAllScore = self.teamAllScore
-        gameData.visitAllScore = self.visitAllScore
-        gameData.timeAll = self.timeAll
+      
         gameData.teamQuarterScore.append(self.firstScore)
         gameData.visitQuarterScore.append(self.secondScore)
         
@@ -415,6 +413,9 @@ class ScoreBoardViewController: UIViewController, UITextFieldDelegate{
         }else {
             gameData.visitName = visitName + ":"
         }
+        self.hoursAll.append(self.hours)
+        self.minutesAll.append(self.minutes)
+        self.secondsAll.append(self.seconds)
         
         let time = "\(self.hours):\(self.minutes):\(self.seconds)"
         gameData.timeQuarter.append(time)
@@ -424,7 +425,10 @@ class ScoreBoardViewController: UIViewController, UITextFieldDelegate{
         self.secondScore = 0
         self.firstScoreLabel.text = "0"
         self.secondScoreLabel.text = "0"
-
+        self.firstFoul = 0
+        self.secondFoul = 0
+        self.firstTeamFoulTextField.text = "0"
+        self.secondTeamFoulTextField.text = "0"
      
         self.tableView.reloadData()
         
@@ -434,6 +438,22 @@ class ScoreBoardViewController: UIViewController, UITextFieldDelegate{
         
         let alert = UIAlertController(title: "比賽結束!", message: "請問是否儲存這場比賽?", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "Yes", style: .default) { (ok) in
+            
+            
+            for i in 0 ..< self.gameData.teamQuarterScore.count {
+                self.teamAllScore += self.gameData.teamQuarterScore[i]
+                self.visitAllScore += self.gameData.visitQuarterScore[i]
+                self.hours += self.hoursAll[i]
+                self.minutes += self.minutesAll[i]
+                self.seconds += self.secondsAll[i]
+            }
+            
+            let time = "\(self.hours):\(self.minutes):\(self.seconds)"
+            
+            self.gameData.teamAllScore = self.teamAllScore
+            self.gameData.visitAllScore = self.visitAllScore
+            self.gameData.timeAll = time
+            
             self.delegate?.gameSetUp(gameData: self.gameData)
             self.dismiss(animated: true)
         }
@@ -660,6 +680,13 @@ extension ScoreBoardViewController: UITableViewDataSource, UITableViewDelegate {
         if editingStyle == .delete {
             
             self.gameQuarterData.remove(at: indexPath.row)
+            self.gameData.teamQuarterScore.remove(at: indexPath.row)
+            self.gameData.visitQuarterScore.remove(at: indexPath.row)
+            self.gameData.timeQuarter.remove(at: indexPath.row)
+            self.hoursAll.remove(at: indexPath.row)
+            self.minutesAll.remove(at: indexPath.row)
+            self.secondsAll.remove(at: indexPath.row)
+            
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
             self.tableView.reloadData()
         }
