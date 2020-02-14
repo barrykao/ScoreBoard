@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		4C5FB5C123C313A000256983 /* GamesDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5FB5C023C313A000256983 /* GamesDetailViewController.swift */; };
-		4C7495C123D7FCFA00F66D75 /* background3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4C7495C023D7FCFA00F66D75 /* background3.jpg */; };
-		4C9CB7CE23D828C800EBD0EE /* background4.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 4C9CB7CD23D828C800EBD0EE /* background4.jpeg */; };
 		4CDFB673237129C300F1D800 /* QuarterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDFB672237129C300F1D800 /* QuarterTableViewCell.swift */; };
 		4CDFB67523715A1E00F1D800 /* GameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDFB67423715A1E00F1D800 /* GameTableViewCell.swift */; };
 		4CDFB67723717F7E00F1D800 /* Games.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDFB67623717F7E00F1D800 /* Games.swift */; };
@@ -20,12 +18,11 @@
 		4CF8E1C2236C207B003A34BE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4CF8E1C0236C207B003A34BE /* LaunchScreen.storyboard */; };
 		4CF8E1CA236C29DC003A34BE /* ScoreBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF8E1C9236C29DC003A34BE /* ScoreBoardViewController.swift */; };
 		4CF8E1CC236C29E6003A34BE /* GamesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF8E1CB236C29E6003A34BE /* GamesViewController.swift */; };
+		4CFC57B723F64A4A0020BEA4 /* extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFC57B623F64A4A0020BEA4 /* extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		4C5FB5C023C313A000256983 /* GamesDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesDetailViewController.swift; sourceTree = "<group>"; };
-		4C7495C023D7FCFA00F66D75 /* background3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = background3.jpg; path = "../../專題/Share-Life-master/HellowMyFriends/HellowMyFriends/images/background3.jpg"; sourceTree = "<group>"; };
-		4C9CB7CD23D828C800EBD0EE /* background4.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = background4.jpeg; path = "../../專題/Share-Life-master/HellowMyFriends/HellowMyFriends/images/background4.jpeg"; sourceTree = "<group>"; };
 		4CDFB672237129C300F1D800 /* QuarterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuarterTableViewCell.swift; sourceTree = "<group>"; };
 		4CDFB67423715A1E00F1D800 /* GameTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTableViewCell.swift; sourceTree = "<group>"; };
 		4CDFB67623717F7E00F1D800 /* Games.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Games.swift; sourceTree = "<group>"; };
@@ -38,6 +35,7 @@
 		4CF8E1C3236C207B003A34BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4CF8E1C9236C29DC003A34BE /* ScoreBoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreBoardViewController.swift; sourceTree = "<group>"; };
 		4CF8E1CB236C29E6003A34BE /* GamesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesViewController.swift; sourceTree = "<group>"; };
+		4CFC57B623F64A4A0020BEA4 /* extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +53,7 @@
 			isa = PBXGroup;
 			children = (
 				4CDFB67623717F7E00F1D800 /* Games.swift */,
+				4CFC57B623F64A4A0020BEA4 /* extension.swift */,
 				4CF8E1CB236C29E6003A34BE /* GamesViewController.swift */,
 				4CF8E1C9236C29DC003A34BE /* ScoreBoardViewController.swift */,
 				4C5FB5C023C313A000256983 /* GamesDetailViewController.swift */,
@@ -95,8 +94,6 @@
 				4CCB577423726D80007E341A /* TableViewCell */,
 				4CCB577223726D50007E341A /* EasyGames */,
 				4CF8E1B9236C2077003A34BE /* ViewController.swift */,
-				4C7495C023D7FCFA00F66D75 /* background3.jpg */,
-				4C9CB7CD23D828C800EBD0EE /* background4.jpeg */,
 				4CF8E1BE236C207B003A34BE /* Assets.xcassets */,
 				4CF8E1C0236C207B003A34BE /* LaunchScreen.storyboard */,
 				4CF8E1C3236C207B003A34BE /* Info.plist */,
@@ -163,8 +160,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4CF8E1C2236C207B003A34BE /* LaunchScreen.storyboard in Resources */,
-				4C7495C123D7FCFA00F66D75 /* background3.jpg in Resources */,
-				4C9CB7CE23D828C800EBD0EE /* background4.jpeg in Resources */,
 				4CF8E1BF236C207B003A34BE /* Assets.xcassets in Resources */,
 				4CF8E1BD236C2077003A34BE /* Main.storyboard in Resources */,
 			);
@@ -180,6 +175,7 @@
 				4C5FB5C123C313A000256983 /* GamesDetailViewController.swift in Sources */,
 				4CDFB67523715A1E00F1D800 /* GameTableViewCell.swift in Sources */,
 				4CDFB673237129C300F1D800 /* QuarterTableViewCell.swift in Sources */,
+				4CFC57B723F64A4A0020BEA4 /* extension.swift in Sources */,
 				4CDFB67723717F7E00F1D800 /* Games.swift in Sources */,
 				4CF8E1CC236C29E6003A34BE /* GamesViewController.swift in Sources */,
 				4CF8E1BA236C2077003A34BE /* ViewController.swift in Sources */,

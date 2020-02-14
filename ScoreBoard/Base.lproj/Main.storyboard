@@ -16,9 +16,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background3.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="F9L-sm-xwE">
-                                <rect key="frame" x="0.0" y="56" width="414" height="660"/>
-                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sAB-XO-3fr">
                                 <rect key="frame" x="10" y="86" width="62" height="30"/>
                                 <state key="normal" title="設定時間"/>
@@ -231,20 +228,20 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ID4-s4-N85">
                                                 <rect key="frame" x="0.0" y="0.0" width="30" height="84"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="apm-Nt-vE3">
+                                                    <button opaque="NO" tag="11" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="apm-Nt-vE3">
                                                         <rect key="frame" x="0.0" y="0.0" width="30" height="42"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                         <state key="normal" title="+"/>
                                                         <connections>
-                                                            <action selector="addFirstTeamPointButton:" destination="tRt-hr-DJJ" eventType="touchUpInside" id="ubr-Ca-Bha"/>
+                                                            <action selector="addScoreButton:" destination="tRt-hr-DJJ" eventType="touchUpInside" id="K3W-zi-tKV"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q4o-x9-LAI">
+                                                    <button opaque="NO" tag="12" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q4o-x9-LAI">
                                                         <rect key="frame" x="0.0" y="42" width="30" height="42"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                         <state key="normal" title="-"/>
                                                         <connections>
-                                                            <action selector="minusFirstTeamButton:" destination="tRt-hr-DJJ" eventType="touchUpInside" id="I6l-od-zhT"/>
+                                                            <action selector="minusScoreButton:" destination="tRt-hr-DJJ" eventType="touchUpInside" id="kqy-Ch-mRx"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -252,7 +249,7 @@
                                                     <constraint firstAttribute="width" constant="30" id="Mx0-gX-Ic5"/>
                                                 </constraints>
                                             </stackView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K0y-f2-H9A">
+                                            <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K0y-f2-H9A">
                                                 <rect key="frame" x="54" y="0.0" width="100" height="84"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="100" id="PmG-b3-8Hp"/>
@@ -267,7 +264,7 @@
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rbq-de-loV">
+                                            <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rbq-de-loV">
                                                 <rect key="frame" x="215.33333333333337" y="0.0" width="100" height="84"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="100" id="new-be-VC8"/>
@@ -279,20 +276,20 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="oLd-z7-4Wb">
                                                 <rect key="frame" x="339.33333333333331" y="0.0" width="34.666666666666686" height="84"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zG4-h9-UpD">
+                                                    <button opaque="NO" tag="13" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zG4-h9-UpD">
                                                         <rect key="frame" x="0.0" y="0.0" width="34.666666666666664" height="42"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                         <state key="normal" title="+"/>
                                                         <connections>
-                                                            <action selector="addSecondTeamPointButton:" destination="tRt-hr-DJJ" eventType="touchUpInside" id="BwT-iQ-nN1"/>
+                                                            <action selector="addScoreButton:" destination="tRt-hr-DJJ" eventType="touchUpInside" id="YB0-0d-DzR"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jBs-ku-ike">
+                                                    <button opaque="NO" tag="14" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jBs-ku-ike">
                                                         <rect key="frame" x="0.0" y="42" width="34.666666666666664" height="42"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                         <state key="normal" title="-"/>
                                                         <connections>
-                                                            <action selector="minusSecondTeamPointButton:" destination="tRt-hr-DJJ" eventType="touchUpInside" id="Guj-qt-RWr"/>
+                                                            <action selector="minusScoreButton:" destination="tRt-hr-DJJ" eventType="touchUpInside" id="FX6-Pa-w3b"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -332,15 +329,15 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QkT-SK-VSI">
                                                         <rect key="frame" x="0.0" y="34" width="126" height="33"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ai6-fr-ujD">
+                                                            <button opaque="NO" tag="30" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ai6-fr-ujD">
                                                                 <rect key="frame" x="0.0" y="0.0" width="86" height="33"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <state key="normal" title="+"/>
                                                                 <connections>
-                                                                    <action selector="addFirstTeamFoulButton:" destination="tRt-hr-DJJ" eventType="touchUpInside" id="a5z-3a-ArY"/>
+                                                                    <action selector="addFoulButton:" destination="tRt-hr-DJJ" eventType="touchUpInside" id="Rhn-fj-cZ3"/>
                                                                 </connections>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GW6-SZ-u0u">
+                                                            <button opaque="NO" tag="40" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GW6-SZ-u0u">
                                                                 <rect key="frame" x="86" y="0.0" width="40" height="33"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="40" id="hbq-tf-t2X"/>
@@ -348,7 +345,7 @@
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <state key="normal" title="-"/>
                                                                 <connections>
-                                                                    <action selector="minusFirstTeamFoulButton:" destination="tRt-hr-DJJ" eventType="touchUpInside" id="9ai-XM-1iD"/>
+                                                                    <action selector="minusFoulButton:" destination="tRt-hr-DJJ" eventType="touchUpInside" id="jf5-2P-2ax"/>
                                                                 </connections>
                                                             </button>
                                                         </subviews>
@@ -382,15 +379,15 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dMG-MN-9CH">
                                                         <rect key="frame" x="0.0" y="34" width="128" height="33"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qwb-gB-aiW">
+                                                            <button opaque="NO" tag="31" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qwb-gB-aiW">
                                                                 <rect key="frame" x="0.0" y="0.0" width="88" height="33"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <state key="normal" title="+"/>
                                                                 <connections>
-                                                                    <action selector="addSecondTeamFoulButton:" destination="tRt-hr-DJJ" eventType="touchUpInside" id="rHr-BU-94Z"/>
+                                                                    <action selector="addFoulButton:" destination="tRt-hr-DJJ" eventType="touchUpInside" id="Kq8-BM-zSb"/>
                                                                 </connections>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bIw-OR-Tav">
+                                                            <button opaque="NO" tag="41" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bIw-OR-Tav">
                                                                 <rect key="frame" x="88" y="0.0" width="40" height="33"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="40" id="Nzw-vW-cxI"/>
@@ -398,7 +395,7 @@
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <state key="normal" title="-"/>
                                                                 <connections>
-                                                                    <action selector="minusSecondTeamFoulButton:" destination="tRt-hr-DJJ" eventType="touchUpInside" id="3ez-nc-1sI"/>
+                                                                    <action selector="minusFoulButton:" destination="tRt-hr-DJJ" eventType="touchUpInside" id="tg1-RN-6Lc"/>
                                                                 </connections>
                                                             </button>
                                                         </subviews>
@@ -455,17 +452,13 @@
                             <constraint firstItem="OEl-mX-7NS" firstAttribute="top" secondItem="OM9-Wr-3mc" secondAttribute="bottom" constant="15" id="5kH-RI-x4m"/>
                             <constraint firstItem="Mzr-Db-OOJ" firstAttribute="top" secondItem="2l0-ac-ApI" secondAttribute="top" constant="18" id="67C-YN-pN7"/>
                             <constraint firstItem="sAB-XO-3fr" firstAttribute="leading" secondItem="2l0-ac-ApI" secondAttribute="leading" constant="10" id="GDe-TX-pTF"/>
-                            <constraint firstItem="F9L-sm-xwE" firstAttribute="trailing" secondItem="2l0-ac-ApI" secondAttribute="trailing" id="HLG-4r-dpH"/>
                             <constraint firstItem="2l0-ac-ApI" firstAttribute="trailing" secondItem="HuJ-Bk-x6I" secondAttribute="trailing" constant="20" id="J1O-hC-iMf"/>
                             <constraint firstItem="Mzr-Db-OOJ" firstAttribute="leading" secondItem="ueY-FS-r67" secondAttribute="trailing" id="JQV-IG-buJ"/>
                             <constraint firstItem="OM9-Wr-3mc" firstAttribute="top" secondItem="ueY-FS-r67" secondAttribute="bottom" constant="8" id="TGh-5f-ODd"/>
-                            <constraint firstItem="F9L-sm-xwE" firstAttribute="bottom" secondItem="2l0-ac-ApI" secondAttribute="bottom" id="UGc-V4-4Ig"/>
                             <constraint firstItem="ueY-FS-r67" firstAttribute="leading" secondItem="2l0-ac-ApI" secondAttribute="leading" constant="70" id="cDS-8W-vdK"/>
                             <constraint firstItem="HuJ-Bk-x6I" firstAttribute="top" secondItem="2l0-ac-ApI" secondAttribute="top" constant="18" id="fxu-yg-cYk"/>
                             <constraint firstItem="OM9-Wr-3mc" firstAttribute="leading" secondItem="2l0-ac-ApI" secondAttribute="leading" constant="20" id="jPg-GX-kI6"/>
                             <constraint firstItem="OEl-mX-7NS" firstAttribute="bottom" secondItem="2l0-ac-ApI" secondAttribute="bottom" id="kjr-Rg-0d6"/>
-                            <constraint firstItem="F9L-sm-xwE" firstAttribute="leading" secondItem="2l0-ac-ApI" secondAttribute="leading" id="qeL-zW-XN1"/>
-                            <constraint firstItem="F9L-sm-xwE" firstAttribute="top" secondItem="2l0-ac-ApI" secondAttribute="top" id="sbE-nx-UIh"/>
                             <constraint firstItem="OEl-mX-7NS" firstAttribute="leading" secondItem="2l0-ac-ApI" secondAttribute="leading" id="zUj-wq-iyB"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="2l0-ac-ApI"/>
@@ -488,8 +481,7 @@
                         <outlet property="firstTeamFoulTextField" destination="EqO-Be-80a" id="LRF-UR-Ck0"/>
                         <outlet property="firstTeamTextField" destination="yH9-vt-Ai2" id="BgP-ui-JEb"/>
                         <outlet property="hourTextView" destination="vcz-pf-Kte" id="6hU-r5-QkY"/>
-                        <outlet property="imageView" destination="F9L-sm-xwE" id="rg1-Q0-dyf"/>
-                        <outlet property="minuteTextVIew" destination="oET-J8-mWv" id="mrc-Cd-t6F"/>
+                        <outlet property="minuteTextView" destination="oET-J8-mWv" id="IdZ-dy-D4q"/>
                         <outlet property="optionButton" destination="sAB-XO-3fr" id="iow-Rg-Eat"/>
                         <outlet property="pointLabel" destination="HuJ-Bk-x6I" id="103-VN-GNw"/>
                         <outlet property="resetButton" destination="8Ya-TB-idT" id="Lje-FP-7g8"/>
@@ -517,7 +509,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Voo-Oi-PTF">
-                                <rect key="frame" x="0.0" y="331" width="414" height="405"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="343"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="gameCell" id="FOL-qe-M3S" customClass="GameTableViewCell" customModule="ScoreBoard" customModuleProvider="target">
@@ -605,30 +597,25 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Lo-Ct-5Du">
-                                <rect key="frame" x="290" y="181" width="62" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="新增比賽"/>
-                                <connections>
-                                    <segue destination="58F-dB-waa" kind="presentation" identifier="gameSegue" id="LTv-2A-EOc"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qLR-4I-5Mo">
-                                <rect key="frame" x="59" y="181" width="62" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="比賽規則"/>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Voo-Oi-PTF" firstAttribute="top" secondItem="3zi-SS-t6B" secondAttribute="top" constant="287" id="0Iy-VH-F69"/>
-                            <constraint firstItem="Voo-Oi-PTF" firstAttribute="leading" secondItem="3zi-SS-t6B" secondAttribute="leading" id="4cb-sn-rni"/>
-                            <constraint firstItem="3zi-SS-t6B" firstAttribute="bottom" secondItem="Voo-Oi-PTF" secondAttribute="bottom" id="D7F-Qz-zX4"/>
-                            <constraint firstItem="Voo-Oi-PTF" firstAttribute="trailing" secondItem="3zi-SS-t6B" secondAttribute="trailing" id="bf3-i7-Nyw"/>
+                            <constraint firstItem="Voo-Oi-PTF" firstAttribute="trailing" secondItem="3zi-SS-t6B" secondAttribute="trailing" id="0bZ-Un-wXW"/>
+                            <constraint firstItem="3zi-SS-t6B" firstAttribute="bottom" secondItem="Voo-Oi-PTF" secondAttribute="bottom" constant="300" id="G1g-F3-anF"/>
+                            <constraint firstItem="Voo-Oi-PTF" firstAttribute="leading" secondItem="3zi-SS-t6B" secondAttribute="leading" id="Le9-7b-sJR"/>
+                            <constraint firstItem="Voo-Oi-PTF" firstAttribute="top" secondItem="3zi-SS-t6B" secondAttribute="top" id="fLt-HU-2jc"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="3zi-SS-t6B"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Games" id="6Kp-Ci-rMb"/>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Games" id="6Kp-Ci-rMb">
+                        <barButtonItem key="rightBarButtonItem" title="新增比賽" id="HaN-cl-dQK">
+                            <connections>
+                                <segue destination="58F-dB-waa" kind="presentation" identifier="gameSegue" id="r9O-si-Crd"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="tableView" destination="Voo-Oi-PTF" id="LdB-xg-gCU"/>
                     </connections>
@@ -646,7 +633,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bCm-Y9-G0v">
-                                <rect key="frame" x="0.0" y="44" width="414" height="692"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="643"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="quarterCell" id="B3g-5q-uSd" customClass="QuarterTableViewCell" customModule="ScoreBoard" customModuleProvider="target">
@@ -782,7 +769,4 @@
             <point key="canvasLocation" x="1865.217391304348" y="831.52173913043487"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="background3.jpg" width="1524.719970703125" height="2537.280029296875"/>
-    </resources>
 </document>
