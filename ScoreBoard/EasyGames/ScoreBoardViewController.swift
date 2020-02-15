@@ -14,7 +14,7 @@ protocol ScoreBoardViewControllerDelegate: class {
 }
 
 
-class ScoreBoardViewController: UIViewController, UITextFieldDelegate{
+class ScoreBoardViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate{
     
     @IBOutlet weak var optionButton: UIButton!
     
@@ -37,8 +37,6 @@ class ScoreBoardViewController: UIViewController, UITextFieldDelegate{
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var resetButton: UIButton!
     
-    
-    @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var scoreStackView: UIStackView!
     
     @IBOutlet weak var tableView: UITableView!
@@ -68,7 +66,10 @@ class ScoreBoardViewController: UIViewController, UITextFieldDelegate{
     
     var teamQuarterScore = [Int]()
     var visitQuarterScore = [Int]()
-
+    var setTimgFlag: Bool = false
+    var timeFlag: Bool = false
+    var scoreFlag: Bool = false
+    
     var delegate: ScoreBoardViewControllerDelegate?
 
     override func viewDidLoad() {
@@ -88,6 +89,9 @@ class ScoreBoardViewController: UIViewController, UITextFieldDelegate{
         self.tableView.delegate = self
         self.firstTeamTextField.delegate = self
         self.secondTeamTextField.delegate = self
+        self.hourTextView.delegate = self
+        self.minuteTextView.delegate = self
+        self.secondTextView.delegate = self
         
         self.firstTeamFoulTextField.isEnabled = false
         self.secondTeamFoulTextField.isEnabled = false
@@ -150,19 +154,19 @@ class ScoreBoardViewController: UIViewController, UITextFieldDelegate{
                   textField.placeholder = "000"
                   textField.keyboardType = UIKeyboardType.phonePad
               }
+                let textField = controller.textFields?.first
+                textField?.delegate = self
+                self.scoreFlag = true
               let okAction = UIAlertAction(title: "OK", style: .default) { (_) in
                   guard let scoreLabel = controller.textFields?[0].text else {return}
                   guard let score = Int(scoreLabel) else {return}
-                  if score > 999 {
-                      alertAction(controller: self, title: "Error", message: "Please enter 0~999")
-                  }else {
                     label.text = scoreLabel
+                    self.scoreFlag = false
                     if label.tag == 1{
                         self.firstScore = score
                     }else {
                         self.secondScore = score
                     }
-                  }
               }
               controller.addAction(okAction)
               let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -172,59 +176,60 @@ class ScoreBoardViewController: UIViewController, UITextFieldDelegate{
     }
     //MARK: changeTheTime
     @objc func timeTap(_ sender: UITapGestureRecognizer){
-        
+        if setTimgFlag {
             guard let timeTextView = sender.view as? UITextView else {return}
             let controller = UIAlertController(title: "Time", message: "Please enter time", preferredStyle: .alert)
             controller.addTextField { (textField) in
                 textField.placeholder = "00"
                 textField.keyboardType = UIKeyboardType.phonePad
             }
+            let textField = controller.textFields?.first
+            textField?.delegate = self
+            self.timeFlag = true
             let okAction = UIAlertAction(title: "OK", style: .default) { (_) in
                 guard let timeText = controller.textFields?[0].text else {return}
                 guard let time = Int(timeText) else {return}
-                if time > 59 {
-                    alertAction(controller: self, title: "Error", message: "Please enter 0~59")
-                }else {
-                    if timeTextView.tag == 3 {
-                        self.minutes = time
-                    }else{
-                        self.seconds = time
-                    }
-                    timeTextView.text = timeText
-                    self.startButton.isEnabled = true
+                if timeTextView.tag == 3 {
+                    self.minutes = time
+                }else{
+                    self.seconds = time
                 }
+                timeTextView.text = timeText
+                self.startButton.isEnabled = true
+                self.timeFlag = false
             }
             controller.addAction(okAction)
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
             controller.addAction(cancelAction)
             present(controller, animated: true, completion: nil)
-    }
-    
-    @objc func hourTimeTap(recognizer:UITapGestureRecognizer){
-        
-        let controller = UIAlertController(title: "Hour", message: "Please enter hour", preferredStyle: .alert)
-        controller.addTextField { (textField) in
-            textField.placeholder = "00"
-            textField.keyboardType = UIKeyboardType.phonePad
         }
-        let okAction = UIAlertAction(title: "OK", style: .default) { (_) in
-            guard let hourTextView = controller.textFields?[0].text else {return}
-            guard let hour = Int(hourTextView) else {return}
-            if hour > 99 {
-                alertAction(controller: self, title: "Error", message: "Please enter 0~99")
-            }else {
+    }
+  
+    @objc func hourTimeTap(recognizer:UITapGestureRecognizer){
+        if setTimgFlag {
+            let controller = UIAlertController(title: "Hour", message: "Please enter hour", preferredStyle: .alert)
+            controller.addTextField { (textField) in
+                textField.placeholder = "00"
+                textField.keyboardType = UIKeyboardType.phonePad
+            }
+            let textField = controller.textFields?.first
+            textField?.delegate = self
+            self.timeFlag = true
+            let okAction = UIAlertAction(title: "OK", style: .default) { (_) in
+                guard let hourTextView = controller.textFields?[0].text else {return}
+                guard let hour = Int(hourTextView) else {return}
                 self.hours = hour
                 self.hourTextView.text = hourTextView
-            self.startButton.isEnabled = true
+                self.startButton.isEnabled = true
+                self.timeFlag = false
             }
+            controller.addAction(okAction)
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            controller.addAction(cancelAction)
+            present(controller, animated: true, completion: nil)
         }
-        controller.addAction(okAction)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        controller.addAction(cancelAction)
-        present(controller, animated: true, completion: nil)
 }
  
-    
     // MARK: Score
     @IBAction func addScoreButton(_ sender: Any) {
         guard let number = sender as? UIButton else {return}
@@ -358,18 +363,18 @@ class ScoreBoardViewController: UIViewController, UITextFieldDelegate{
         self.pointLabel.text = String(format: "%d",point)
         if self.hours == 0 && self.minutes == 0 && self.seconds == 0 && self.point == 0 {
             
-                self.timer.invalidate()
-                self.hourTextView.text = UserDefaults.standard.string(forKey: "hours")
-                self.minuteTextView.text = UserDefaults.standard.string(forKey: "minutes")
-                self.secondTextView.text = UserDefaults.standard.string(forKey: "seconds")
-                self.hours = UserDefaults.standard.integer(forKey: "hours")
-                self.minutes = UserDefaults.standard.integer(forKey: "minutes")
-                self.seconds = UserDefaults.standard.integer(forKey: "seconds")
-                self.startButton.setTitle("Start", for: .normal)
-                self.isCountDown = true
-                self.navigationItem.leftBarButtonItem?.isEnabled = true
-                self.optionButton.isEnabled = true
-                self.resetButton.isEnabled = true
+            self.timer.invalidate()
+            self.hourTextView.text = UserDefaults.standard.string(forKey: "hours") ?? "0"
+            self.minuteTextView.text = UserDefaults.standard.string(forKey: "minutes") ?? "0"
+            self.secondTextView.text = UserDefaults.standard.string(forKey: "seconds") ?? "0"
+            self.hours = UserDefaults.standard.integer(forKey: "hours")
+            self.minutes = UserDefaults.standard.integer(forKey: "minutes")
+            self.seconds = UserDefaults.standard.integer(forKey: "seconds")
+            self.startButton.setTitle("Start", for: .normal)
+            self.isCountDown = true
+            self.navigationItem.leftBarButtonItem?.isEnabled = true
+            self.optionButton.isEnabled = true
+            self.resetButton.isEnabled = true
             if self.timeChangeFlag {
                 self.saveButton.isEnabled = true
                 alertAction(controller: self, title: "時間到!", message: "比賽結束\n點選Save可以儲存該節比賽")
@@ -470,6 +475,7 @@ class ScoreBoardViewController: UIViewController, UITextFieldDelegate{
         
         let alert = UIAlertController(title: "比賽結束!", message: "請問是否儲存這場比賽?", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "Yes", style: .default) { (ok) in
+            self.setTimgFlag = false
             for i in 0 ..< self.gameData.teamQuarterScore.count {
                 self.teamAllScore += self.gameData.teamQuarterScore[i]
                 self.visitAllScore += self.gameData.visitQuarterScore[i]
@@ -502,6 +508,7 @@ class ScoreBoardViewController: UIViewController, UITextFieldDelegate{
             let action = UIAlertAction(title: action, style: .default) { (action) in
                 if action.title == "設定比賽時間" {
                     self.timeChangeFlag = true
+                    self.setTimgFlag = true
                     self.optionTime(title: "設定比賽時間", message: "請輸入比賽時間")
                 }
                 if action.title == "設定暫停時間" {
@@ -532,11 +539,17 @@ class ScoreBoardViewController: UIViewController, UITextFieldDelegate{
                     textField.placeholder = "秒:00"
                     textField.keyboardType = UIKeyboardType.phonePad
             }
+            guard let textField = controller.textFields else {return}
+            for i in 0 ..< textField.count {
+                textField[i].delegate = self
+            }
+            self.timeFlag = true
             let okAction = UIAlertAction(title: "OK", style: .default) { (_) in
                 guard let hours = controller.textFields?[0].text else {return}
                 guard let minutes = controller.textFields?[1].text else {return}
                 guard let seconds = controller.textFields?[2].text else {return}
                 self.setTimeAction(hours: hours, minutes: minutes, seconds: seconds)
+                self.timeFlag = false
             }
             controller.addAction(okAction)
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -611,6 +624,9 @@ class ScoreBoardViewController: UIViewController, UITextFieldDelegate{
         self.firstTeamFoulTextField.text = "0"
         self.secondTeamFoulTextField.text = "0"
         self.startButton.isEnabled = false
+        self.setTimgFlag = false
+        self.timeFlag = false
+        self.scoreFlag = false
     }
 
     @IBAction func backButton(_ sender: Any) {
@@ -629,7 +645,25 @@ class ScoreBoardViewController: UIViewController, UITextFieldDelegate{
        textField.resignFirstResponder()
        return true
    }
-   
+
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if scoreFlag {
+            if range.location < 3 {
+                return true
+            }
+            return false
+        }
+        if timeFlag {
+            if range.location < 2 {
+                return true
+            }
+            return false
+        }
+        if range.location < 5 {
+            return true
+        }
+        return false
+    }
     /*
     // MARK: - Navigation
 
