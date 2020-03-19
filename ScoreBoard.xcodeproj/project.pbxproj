@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		4C5FB5C123C313A000256983 /* GamesDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5FB5C023C313A000256983 /* GamesDetailViewController.swift */; };
+		4C9E094E24076C0D0021EF13 /* images.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 4C9E094D24076C0D0021EF13 /* images.jpeg */; };
+		4CA0998923FCE5B70032F491 /* HomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA0998823FCE5B70032F491 /* HomePageViewController.swift */; };
 		4CDFB673237129C300F1D800 /* QuarterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDFB672237129C300F1D800 /* QuarterTableViewCell.swift */; };
 		4CDFB67523715A1E00F1D800 /* GameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDFB67423715A1E00F1D800 /* GameTableViewCell.swift */; };
 		4CDFB67723717F7E00F1D800 /* Games.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDFB67623717F7E00F1D800 /* Games.swift */; };
@@ -23,6 +25,8 @@
 
 /* Begin PBXFileReference section */
 		4C5FB5C023C313A000256983 /* GamesDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesDetailViewController.swift; sourceTree = "<group>"; };
+		4C9E094D24076C0D0021EF13 /* images.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = images.jpeg; path = ../../../../Downloads/images.jpeg; sourceTree = "<group>"; };
+		4CA0998823FCE5B70032F491 /* HomePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageViewController.swift; sourceTree = "<group>"; };
 		4CDFB672237129C300F1D800 /* QuarterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuarterTableViewCell.swift; sourceTree = "<group>"; };
 		4CDFB67423715A1E00F1D800 /* GameTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTableViewCell.swift; sourceTree = "<group>"; };
 		4CDFB67623717F7E00F1D800 /* Games.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Games.swift; sourceTree = "<group>"; };
@@ -54,6 +58,7 @@
 			children = (
 				4CDFB67623717F7E00F1D800 /* Games.swift */,
 				4CFC57B623F64A4A0020BEA4 /* extension.swift */,
+				4CA0998823FCE5B70032F491 /* HomePageViewController.swift */,
 				4CF8E1CB236C29E6003A34BE /* GamesViewController.swift */,
 				4CF8E1C9236C29DC003A34BE /* ScoreBoardViewController.swift */,
 				4C5FB5C023C313A000256983 /* GamesDetailViewController.swift */,
@@ -94,6 +99,7 @@
 				4CCB577423726D80007E341A /* TableViewCell */,
 				4CCB577223726D50007E341A /* EasyGames */,
 				4CF8E1B9236C2077003A34BE /* ViewController.swift */,
+				4C9E094D24076C0D0021EF13 /* images.jpeg */,
 				4CF8E1BE236C207B003A34BE /* Assets.xcassets */,
 				4CF8E1C0236C207B003A34BE /* LaunchScreen.storyboard */,
 				4CF8E1C3236C207B003A34BE /* Info.plist */,
@@ -160,6 +166,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4CF8E1C2236C207B003A34BE /* LaunchScreen.storyboard in Resources */,
+				4C9E094E24076C0D0021EF13 /* images.jpeg in Resources */,
 				4CF8E1BF236C207B003A34BE /* Assets.xcassets in Resources */,
 				4CF8E1BD236C2077003A34BE /* Main.storyboard in Resources */,
 			);
@@ -180,6 +187,7 @@
 				4CF8E1CC236C29E6003A34BE /* GamesViewController.swift in Sources */,
 				4CF8E1BA236C2077003A34BE /* ViewController.swift in Sources */,
 				4CF8E1CA236C29DC003A34BE /* ScoreBoardViewController.swift in Sources */,
+				4CA0998923FCE5B70032F491 /* HomePageViewController.swift in Sources */,
 				4CF8E1B8236C2077003A34BE /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
