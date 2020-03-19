@@ -19,7 +19,7 @@ class HomePageViewController: UIViewController {
         super.viewDidLoad()
 
         
-        
+        print("123")
         buttonInit(button: startButton)
         
         
