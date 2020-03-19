@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9Jt-i2-UZU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="P16-l8-stl">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -505,11 +505,11 @@
             <objects>
                 <viewController id="eyB-Gs-wkh" customClass="GamesViewController" customModule="ScoreBoard" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="X2v-6y-lWh">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Voo-Oi-PTF">
-                                <rect key="frame" x="0.0" y="56" width="414" height="311"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="343"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="gameCell" id="FOL-qe-M3S" customClass="GameTableViewCell" customModule="ScoreBoard" customModuleProvider="target">
@@ -624,56 +624,16 @@
             </objects>
             <point key="canvasLocation" x="2772.4637681159425" y="831.52173913043487"/>
         </scene>
-        <!--Home Page View Controller-->
-        <scene sceneID="wqY-Ak-y4R">
-            <objects>
-                <viewController id="9Jt-i2-UZU" customClass="HomePageViewController" customModule="ScoreBoard" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="baa-NK-3a4">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="images.jpeg" translatesAutoresizingMaskIntoConstraints="NO" id="FVl-jp-Ool">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AHh-ef-O0k">
-                                <rect key="frame" x="127" y="517" width="161" height="60"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                                <state key="normal" title="開始使用">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <segue destination="P16-l8-stl" kind="presentation" identifier="startSegue" id="8yf-o2-XS1"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <constraints>
-                            <constraint firstItem="FVl-jp-Ool" firstAttribute="trailing" secondItem="5jb-ZD-nBe" secondAttribute="trailing" id="0R5-e6-qKX"/>
-                            <constraint firstItem="FVl-jp-Ool" firstAttribute="top" secondItem="5jb-ZD-nBe" secondAttribute="top" id="9x0-1Y-yyH"/>
-                            <constraint firstItem="FVl-jp-Ool" firstAttribute="bottom" secondItem="5jb-ZD-nBe" secondAttribute="bottom" id="hKN-hW-lAt"/>
-                            <constraint firstItem="FVl-jp-Ool" firstAttribute="leading" secondItem="5jb-ZD-nBe" secondAttribute="leading" id="v8b-x5-8fL"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="5jb-ZD-nBe"/>
-                    </view>
-                    <connections>
-                        <outlet property="startButton" destination="AHh-ef-O0k" id="3n7-vj-9AK"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="gEd-J6-J05" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="934.78260869565224" y="831.52173913043487"/>
-        </scene>
         <!--Games Detail View Controller-->
         <scene sceneID="ENR-Zb-7ad">
             <objects>
                 <viewController id="VX5-dZ-OjP" customClass="GamesDetailViewController" customModule="ScoreBoard" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="veG-Kl-xg2">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bCm-Y9-G0v">
-                                <rect key="frame" x="0.0" y="56" width="414" height="611"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="643"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="quarterCell" id="B3g-5q-uSd" customClass="QuarterTableViewCell" customModule="ScoreBoard" customModuleProvider="target">
@@ -795,9 +755,8 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="P16-l8-stl" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" id="5te-zO-KTR"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="eMm-bn-q0U">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -810,7 +769,4 @@
             <point key="canvasLocation" x="1865.217391304348" y="831.52173913043487"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="images.jpeg" width="168" height="300"/>
-    </resources>
 </document>
